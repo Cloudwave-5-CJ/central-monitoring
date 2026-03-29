@@ -24,7 +24,7 @@ Prometheus, Loki, Tempo, Grafana(LGTM 스택)를 기반으로 메트릭, 로그,
 - Traces: Grafana Tempo
 - Collector: Grafana Alloy (OpenTelemetry Collector)
 - Visualization: Grafana
-- Alerting: Alertmanager, Slack Integration
+- Alerting: Prometheus alert rules
 
 ---
 
@@ -38,6 +38,4 @@ Prometheus, Loki, Tempo, Grafana(LGTM 스택)를 기반으로 메트릭, 로그,
 │   ├── loki.yaml
 │   ├── tempo.yaml
 │   └── alert.rules.yml
-├── alertmanager/
-│   └── alertmanager.yml
 └── README.md
