@@ -1,0 +1,29 @@
+global:
+  scrape_interval: 15s
+  scrape_timeout: 10s
+
+scrape_configs:
+  - job_name: 'monitoring-system'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  - job_name: 'dev-environment'
+    static_configs:
+      - targets: ['10.20.1.59:9100']
+        labels:
+          env: 'dev'
+
+  - job_name: 'prod-environment'
+    static_configs:
+      - targets: ['10.10.2.100:9100']
+        labels:
+          env: 'prod'
+
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+            - "alertmanager:9093"
+
+rule_files:
+  - "alert.rules.yml"
