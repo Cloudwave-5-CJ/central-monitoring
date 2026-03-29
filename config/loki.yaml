@@ -1,0 +1,50 @@
+auth_enabled: false
+
+server:
+  http_listen_port: 3100
+
+common:
+  instance_addr: 127.0.0.1
+  path_prefix: /tmp/loki
+  storage:
+    s3:
+      s3: s3://cgv-monitoring-storage
+      region: ap-northeast-2
+      endpoint: cgv-monitoring-storage.s3.ap-northeast-2.amazonaws.com
+      s3forcepathstyle: true
+
+  replication_factor: 1
+  ring:
+    kvstore:
+      store: inmemory
+
+schema_config:
+  configs:
+    - from: 2020-10-24
+      store: boltdb-shipper
+      object_store: s3
+      schema: v11
+      index:
+        prefix: index_
+        period: 24h
+
+limits_config:
+  ingestion_rate_mb: 10
+  ingestion_burst_size_mb: 20
+  allow_structured_metadata: false
+  deletion_mode: disabled
+
+  reject_old_samples: true
+  reject_old_samples_max_age: 24h
+
+
+ruler:
+  enable_api: false
+  storage:
+    type: local
+    local:
+      directory: /tmp/loki/rules
+  rule_path: /tmp/loki/rules-temp
+  ring:
+    kvstore:
+      store: inmemory
